@@ -648,12 +648,10 @@
 
 ## 完整运行示例
 
-以下是基于你提供的调用代码，并纠正了 `type` 参数为 `cell_type` 后的完整运行示例。
 
 ```python
 # ==============================================================================
 # scGeneset - 完整分析流程示例
-# 包含数据加载、通路打分、以及多种分析和图表生成
 # ==============================================================================
 
 import sys
@@ -661,19 +659,14 @@ import os
 import scanpy as sc
 import anndata
 import matplotlib.pyplot as plt # 导入 matplotlib 用于关闭所有图表
-import numpy as np # 用于生成假数据
+import numpy as np 
 
 # ===== 添加当前目录到Python路径 (如果作为独立脚本运行，而非安装包) =====
 # current_dir = os.path.dirname(os.path.abspath(__file__))
 # sys.path.insert(0, current_dir)
 # 在 Jupyter/Colab 环境中，可以直接导入，无需此步
 # import scGeneset as sci # 如果已经安装为 scGeneset
-# 或者如果你的库实际名称是 scInflammation:
-import scGeneset as sci # 假定库名为 scGeneset
-
-
-# 验证导入
-print("✓ scGeneset 导入成功!")
+import scGeneset as sci 
 print(f"库位置: {sci.__file__}")
 print(f"当前工作目录: {os.getcwd()}")
 
@@ -686,11 +679,6 @@ os.makedirs(base_output_dir, exist_ok=True)
 # ===========================
 # 1. 数据加载与通路打分
 # ===========================
-
-print("\n" + "=" * 60)
-print("步骤1: 加载数据并计算通路得分")
-print("=" * 60)
-
 # 定义一个 AnnData 对象的路径作为示例输入。
 # 你需要替换为你的实际文件路径，或者使用 load_data 的文件列表模式。
 # 这里假设你已经有一个名为 'annotated_adata.h5ad' 的文件
@@ -717,11 +705,6 @@ if not os.path.exists(example_adata_path):
 
 adata = sci.load_data(adata_file=example_adata_path)
 
-print(f"✓ 数据加载完成")
-print(f"  细胞数: {adata.n_obs}")
-print(f"  基因数: {adata.n_vars}")
-print(f"  obs 列数: {len(adata.obs.columns)}")
-
 # 确保 adata.raw 存在且是 AnnData 对象
 if adata.raw is None:
     print("⚠️  警告: adata.raw 为 None，将使用当前数据作为 raw")
@@ -737,10 +720,6 @@ elif not isinstance(adata.raw, anndata.AnnData):
 else:
     print("✓ adata.raw 已经是 AnnData 对象")
 
-
-print("\n" + "=" * 60)
-print("步骤2: 加载通路基因集")
-print("=" * 60)
 
 pathway_dict = sci.load_pathway_genes(pathway_file="PCD")
 
